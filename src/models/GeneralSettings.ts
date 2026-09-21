@@ -13,7 +13,7 @@ const GeneralSettingsSchema = new Schema(
     promoDiscount: { type: Number, default: 10 },
     heroTitle: { type: String, default: "Wellness, rooted in South Africa" },
     heroSubtitle: { type: String, default: "Discover considered skincare and self-care made with the botanicals, rituals and warmth of Mzansi." },
-    heroImageUrl: { type: String, default: "/hero_botanical.png" },
+    heroImageUrl: { type: String, default: "/hero_phethagatsa.png" },
     heroCountdownDate: { type: Date, default: () => new Date(Date.now() + 300 * 24 * 60 * 60 * 1000) },
     storeCountry: { type: String, default: "South Africa" },
     activeZones: { type: [String], default: ["South Africa"] },

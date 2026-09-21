@@ -9,7 +9,17 @@ import User from "@/models/User";
 import { redirect } from "next/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSettings();
+  let settings: Awaited<ReturnType<typeof getSettings>>;
+  try {
+    settings = await getSettings();
+  } catch (error) {
+    console.error("Failed to load storefront metadata settings:", error);
+    settings = {
+      storeName: "PHETHAGATSA SOLUTIONS",
+      heroSubtitle: "Thoughtful essentials made with nourishing ingredients for your everyday ritual.",
+      faviconUrl: "",
+    } as Awaited<ReturnType<typeof getSettings>>;
+  }
   return {
     title: {
       default: settings.storeName || "SnapShop",
@@ -30,27 +40,46 @@ interface LayoutProps {
 export default async function RootLayout({ children, params }: LayoutProps) {
   const { lang } = await params;
   
-  // Check if system is installed
-  await dbConnect();
+  // Check if system is installed when the database is available.
   let needsInstall = false;
+  let databaseAvailable = false;
   try {
+    await dbConnect();
+    databaseAvailable = true;
     const adminCount = await User.countDocuments({ role: "admin" });
     if (adminCount === 0) {
       needsInstall = true;
     }
   } catch (error) {
-    // If DB fails, assume not installed
-    needsInstall = true;
+    console.error("Storefront database unavailable; rendering public fallback:", error);
   }
 
   if (needsInstall) {
     redirect("/install");
   }
 
-  const settings = await getSettings();
+  let settings: Awaited<ReturnType<typeof getSettings>>;
+  try {
+    settings = await getSettings();
+  } catch (error) {
+    console.error("Failed to load storefront settings:", error);
+    settings = {
+      storeName: "PHETHAGATSA SOLUTIONS",
+      logoUrl: "/logo.png",
+      faviconUrl: "",
+      heroSubtitle: "Thoughtful essentials made with nourishing ingredients for your everyday ritual.",
+    } as Awaited<ReturnType<typeof getSettings>>;
+  }
 
   // Load translations for the active storefront locale
-  const translationsRaw = await Translation.find({});
+  let translationsRaw = [];
+  if (databaseAvailable) {
+    try {
+      translationsRaw = await Translation.find({});
+    } catch (error) {
+      console.error("Failed to load storefront translations:", error);
+    }
+  }
   const translationsMap: Record<string, string> = {};
   
   translationsRaw.forEach((item: any) => {

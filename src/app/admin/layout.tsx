@@ -2,6 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+
+export const dynamic = "force-dynamic";
+
 import dbConnect from "@/lib/db";
 import User from "@/models/User";
 import { verifyToken } from "@/lib/auth";

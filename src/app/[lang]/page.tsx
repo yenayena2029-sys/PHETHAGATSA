@@ -50,7 +50,7 @@ async function getHomeData() {
       settings: {
         heroTitle: "Discover Your Style",
         heroSubtitle: "Explore our latest collection of premium fashion designed for the modern woman.",
-        heroImageUrl: "/hero_botanical.png",
+        heroImageUrl: "/hero_phethagatsa.png",
         heroCountdownDate: new Date(Date.now() + 300 * 24 * 60 * 60 * 1000).toISOString(),
         currency: "$",
       },
@@ -67,7 +67,13 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const { settings, featuredProducts, popularProducts, newArrivals, categories } = await getHomeData();
 
   // Load translations matching current locale
-  const translationsRaw = await Translation.find({});
+  let translationsRaw = [];
+  try {
+    await dbConnect();
+    translationsRaw = await Translation.find({});
+  } catch (error) {
+    console.error("Failed to load home translations:", error);
+  }
   const t = (key: string): string => {
     const item = translationsRaw.find((item: any) => item.key === key);
     if (!item) return key;

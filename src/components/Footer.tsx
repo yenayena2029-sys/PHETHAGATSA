@@ -30,7 +30,16 @@ export default function Footer() {
     <footer id="contact" style={styles.footer}>
       <div className="container" style={styles.footerGrid}>
         <div>
-          <h3 style={styles.logo}>{storeName}</h3>
+          <div style={styles.brand}>
+            <img
+              src="/logo.png"
+              alt={`${storeName} logo`}
+              width={48}
+              height={48}
+              style={styles.logoImage}
+            />
+            <h3 style={styles.logo}>{storeName}</h3>
+          </div>
           <p style={styles.text}>
             {t("Discover considered skincare and self-care made with the botanicals, rituals and warmth of Mzansi.")}
           </p>
@@ -86,6 +95,18 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: "800",
     color: "#f2e7c8",
     marginBottom: "16px",
+  },
+  brand: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    marginBottom: "16px",
+  },
+  logoImage: {
+    width: "48px",
+    height: "48px",
+    objectFit: "contain",
+    borderRadius: "10px",
   },
   text: {
     color: "#9ca995",

@@ -6,7 +6,7 @@ export interface LanguageItem {
 }
 
 export const ALL_LANGUAGES: LanguageItem[] = [
-  { code: "en", name: "English", nativeName: "English", flag: "/images/flags/us.svg" },
+  { code: "en", name: "English", nativeName: "English", flag: "/images/flags/za.svg" },
   { code: "ar", name: "Arabic", nativeName: "العربية", flag: "/images/flags/ma.svg" },
   { code: "fr", name: "French", nativeName: "Français", flag: "/images/flags/fr.svg" },
   { code: "es", name: "Spanish", nativeName: "Español", flag: "/images/flags/es.svg" },

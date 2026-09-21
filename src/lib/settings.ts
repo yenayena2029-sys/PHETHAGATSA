@@ -76,6 +76,9 @@ export async function getSettings() {
   if (merged.storeName === "Ubuntu Wellness Market") {
     merged.storeName = "PHETHAGATSA SOLUTIONS";
   }
+  if (!merged.heroImageUrl || merged.heroImageUrl === "/hero_botanical.png") {
+    merged.heroImageUrl = "/hero_phethagatsa.png";
+  }
 
   merged.stripePubKey = resolveSettingValue(merged.stripePubKey, process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || process.env.STRIPE_PUBLISHABLE_KEY);
   merged.stripeSecretKey = resolveSettingValue(merged.stripeSecretKey, process.env.STRIPE_SECRET_KEY);

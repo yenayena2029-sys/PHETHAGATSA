@@ -19,7 +19,7 @@ const LanguageSettingsSchema = new Schema(
           code: "en",
           name: "English",
           nativeName: "English",
-          flag: "/images/flags/us.svg",
+          flag: "/images/flags/za.svg",
           isActive: true,
           isDefault: true
         }
